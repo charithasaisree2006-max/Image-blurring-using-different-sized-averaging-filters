@@ -40,3 +40,83 @@ def show_comparision(original,blur3,blur5,blur7):
 
   plt.show()
 
+#1.read the image in gray scale
+#replace 'input_image.jpg with your filename
+img=cv2.imread('/images (2).jfif',0)
+if img is None:
+  print("error:image not found.")
+else:
+  #2.Define averaging kernels od different sizes(3x3,5x5,7x7)
+  #A kernal is a matrix of ones normalized by the number of elements
+  kernel_3x3=np.ones((3,3),dtype=np.float32)/9.0
+  kernel_5x5=np.ones((5,5),dtype=np.float32)/25.0
+  kernel_7x7=np.ones((7,7),dtype=np.float32)/49.0
+
+  #3.Apply each kernal to image using 2D convolution
+  #cv2.filter2D performs the convolution operation
+  blur_3x3=cv2.filter2D(img,-1,kernel_3x3)
+  blur_5x5=cv2.filter2D(img,-1,kernel_5x5)
+  blur_7x7=cv2.filter2D(img,-1,kernel_7x7)
+
+  #4.Display the original and blurred images for comparison
+  show_comparision(img,blur_3x3,blur_5x5,blur_7x7)
+
+#without cv2
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+
+def average_filter(image, kernel_size):
+    pad = kernel_size // 2
+    padded = np.pad(image, pad, mode='edge')
+    output = np.zeros_like(image, dtype=np.float32)
+
+    for i in range(image.shape[0]):
+        for j in range(image.shape[1]):
+            region = padded[i:i+kernel_size, j:j+kernel_size]
+            output[i, j] = np.mean(region)
+
+    return output.astype(np.uint8)
+
+
+def show_comparison(original, blur3, blur5, blur7):
+    plt.figure(figsize=(12, 10))
+
+    # Original Image
+    plt.subplot(2, 2, 1)
+    plt.imshow(original, cmap='gray')
+    plt.title("Original Grayscale Image")
+    plt.axis('off')
+
+    # 3x3 Kernel
+    plt.subplot(2, 2, 2)
+    plt.imshow(blur3, cmap='gray')
+    plt.title("Average Filter (3x3)")
+    plt.axis('off')
+
+    # 5x5 Kernel
+    plt.subplot(2, 2, 3)
+    plt.imshow(blur5, cmap='gray')
+    plt.title("Average Filter (5x5)")
+    plt.axis('off')
+
+    # 7x7 Kernel
+    plt.subplot(2, 2, 4)
+    plt.imshow(blur7, cmap='gray')
+    plt.title("Average Filter (7x7)")
+    plt.axis('off')
+
+    plt.tight_layout()
+    plt.show()
+
+
+# Read image in grayscale
+img = np.array(Image.open('/content/drive/MyDrive/images/bird.jpeg').convert('L'))
+
+# Apply average filters
+blur_3x3 = average_filter(img, 3)
+blur_5x5 = average_filter(img, 5)
+blur_7x7 = average_filter(img, 7)
+
+# Display results
+show_comparison(img, blur_3x3, blur_5x5, blur_7x7)
