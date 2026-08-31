@@ -1,6 +1,6 @@
 # IMAGE BLURRING USING DIFFERENT SIZED AVERAGING FILTERS
 <img width="950" height="709" alt="image" src="https://github.com/user-attachments/assets/9ccd30e9-7f11-4eb5-98bd-9279eba00d9a" />
-![Uploading image.png…]()
+<img width="754" height="989" alt="image" src="https://github.com/user-attachments/assets/1032607f-834d-465e-9114-a4be34a551ab" />
 
 
 
