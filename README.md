@@ -3,6 +3,7 @@
 ![Uploading image.png…]()
 
 
+
 # AIM
 
 To demonstrate the effect of image blurring using averaging filters of different kernel sizes.
